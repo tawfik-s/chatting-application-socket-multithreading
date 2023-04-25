@@ -46,4 +46,10 @@ public class LoginController {
         // Close the stage
         stage.close();
     }
+
+    @FXML
+    private void signupButtonAction() {
+        // Implement the signup functionality here
+        // For example, you can open a new window or change the scene to the signup page
+    }
 }
