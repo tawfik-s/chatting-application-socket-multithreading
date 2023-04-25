@@ -16,15 +16,18 @@ public class Server {
     private static ArrayList<MessagingThread> clients = new ArrayList<>();
 
     public static void main(String[]args) throws Exception {
-      ServerSocket server = new ServerSocket(8080, 10);
+      ServerSocket server = new ServerSocket(9091, 10);
         out.println("Now Server Is Running");
         //DbOperations.createUsersTable("users");
         //DbOperations.createChatTable("chat_backup");
+
+        int clientsNmber =0;
         while (true) {
             Socket client = server.accept();
             MessagingThread thread = new MessagingThread(client);
             clients.add(thread);
             thread.start();
+            System.out.println("CLINT: " + (++clientsNmber) + " is running");
         }
     }
 
