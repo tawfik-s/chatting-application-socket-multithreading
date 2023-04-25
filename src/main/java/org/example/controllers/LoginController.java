@@ -58,7 +58,7 @@ public class LoginController {
 
         double yOffset = 10;
         for (CardData data : dummyData) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/java/org/example/views/card_item.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/views/cardI.fxml"));
             AnchorPane card = loader.load();
 
             CardItemController controller = loader.getController();
