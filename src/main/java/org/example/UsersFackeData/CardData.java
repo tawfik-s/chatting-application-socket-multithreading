@@ -2,18 +2,18 @@ package org.example.UsersFackeData;
 
 public class CardData {
     private String title;
-    private String description;
+    private String imageUrl;
 
-    public CardData(String title, String description) {
+    public CardData(String title, String imageUrl) {
         this.title = title;
-        this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getImageUrl() {
+        return imageUrl;
     }
 }

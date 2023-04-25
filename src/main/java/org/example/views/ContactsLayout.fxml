@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ScrollPane?>
+
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ContactsLayoutController">
+    <ScrollPane fitToWidth="true">
+        <AnchorPane fx:id="cardContainer" layoutY="10.0" prefHeight="570.0" prefWidth="780.0" />
+    </ScrollPane>
+</AnchorPane>

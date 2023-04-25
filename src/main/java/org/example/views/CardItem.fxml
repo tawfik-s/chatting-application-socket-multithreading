@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.CardItemController">
+    <ImageView fx:id="image" fitHeight="100.0" fitWidth="200.0" layoutX="0.0" layoutY="0.0" preserveRatio="true" />
+    <Label fx:id="title" layoutX="14.0" layoutY="106.0" style="-fx-font-size: 16px;" />
+    <Button fx:id="button" layoutX="125.0" layoutY="106.0" mnemonicParsing="false" text="Button" />
+</AnchorPane>
