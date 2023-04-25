@@ -9,10 +9,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.example.UsersFackeData.CardData;
+import org.example.UsersFackeData.DummyData;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LoginController {
 
@@ -23,7 +27,7 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
-    private void loginButtonAction() {
+    private void loginButtonAction(ActionEvent e) throws IOException {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
@@ -44,6 +48,33 @@ public class LoginController {
 
         // If the login is successful, you can open a new window or change the scene
         // If the login fails, you can display an error message to the user
+
+        /**
+         * if login successfuly go to contacts list
+         */
+
+        AnchorPane root = new AnchorPane();
+        List<CardData> dummyData = DummyData.getDummyData();
+
+        double yOffset = 10;
+        for (CardData data : dummyData) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/java/org/example/views/card_item.fxml"));
+            AnchorPane card = loader.load();
+
+            CardItemController controller = loader.getController();
+            controller.setTitle(data.getTitle());
+            controller.setDescription(data.getDescription());
+
+            AnchorPane.setTopAnchor(card, yOffset);
+            yOffset += 110;
+            root.getChildren().add(card);
+        }
+
+        Scene scene = new Scene(root, 300, 400);
+        Stage stage =  (Stage) ((Node)e.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+//        stage.setResizable(false);
+        stage.show();
     }
 
     @FXML
