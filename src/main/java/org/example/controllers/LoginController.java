@@ -1,10 +1,18 @@
 package org.example.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -48,8 +56,20 @@ public class LoginController {
     }
 
     @FXML
-    private void signupButtonAction() {
-        // Implement the signup functionality here
-        // For example, you can open a new window or change the scene to the signup page
+    private void signupButtonAction(ActionEvent event) throws IOException {
+        // Load the sign-up page from the FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main/java/org/example/views/signup.fxml"));
+        Parent root = loader.load();
+
+        // Create a new stage and set the sign-up page as its scene
+        Stage signupStage = new Stage();
+        signupStage.setScene(new Scene(root));
+
+        // Set the modality and owner of the sign-up stage to prevent interaction with the parent stage
+        signupStage.initModality(Modality.APPLICATION_MODAL);
+        signupStage.initOwner(((Node) event.getSource()).getScene().getWindow());
+
+        // Show the sign-up stage to display the sign-up page
+        signupStage.show();
     }
 }
