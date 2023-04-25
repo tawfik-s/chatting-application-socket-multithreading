@@ -35,9 +35,9 @@ public class SignupController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         signupButton.setOnAction(event -> {
-            String username = usernameField.getText();
-            String password = passwordField.getText();
-            String confirmPassword = confirmPasswordField.getText();
+            String username = usernameField.getText().trim();
+            String password = passwordField.getText().trim();
+            String confirmPassword = confirmPasswordField.getText().trim();
 
             // Validate input
             if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
@@ -53,6 +53,10 @@ public class SignupController implements Initializable {
                 alert.setContentText("Passwords do not match.");
                 alert.showAndWait();
             } else {
+                /**
+                 * here
+                 * add user to database
+                 */
                 // Create new user account
                 // TODO: Implement account creation logic
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -75,7 +79,15 @@ public class SignupController implements Initializable {
         });
 
         loginButton.setOnAction(event -> {
-            // TODO: Implement login button logic
+            // Get the current scene
+            Scene scene = cancelButton.getScene();
+
+            // Get the current window
+            Window window = scene.getWindow();
+
+            // Close the current window to go back to the previous scene
+            window.hide();
+
         });
     }
 }

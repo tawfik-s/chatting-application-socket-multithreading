@@ -58,7 +58,7 @@ public class LoginController {
     @FXML
     private void signupButtonAction(ActionEvent event) throws IOException {
         // Load the sign-up page from the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main/java/org/example/views/signup.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/java/org/example/views/signup.fxml"));
         Parent root = loader.load();
 
         // Create a new stage and set the sign-up page as its scene
