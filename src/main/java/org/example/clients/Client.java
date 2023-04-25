@@ -1,4 +1,4 @@
-package org.example.clent;
+package org.example.clients;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +10,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class Client2 extends JFrame implements ActionListener {
-
+public class Client extends JFrame implements ActionListener {
 
     String username;
     PrintWriter pw;
@@ -21,7 +20,7 @@ public class Client2 extends JFrame implements ActionListener {
     JButton send, exit;
     Socket chatusers;
 
-    public Client2(String uname,String servername) throws Exception {
+    public Client(String uname,String servername) throws Exception {
         super(uname);
         this.username = uname;
         chatusers  = new Socket(servername,9091);
@@ -30,11 +29,9 @@ public class Client2 extends JFrame implements ActionListener {
         pw.println(uname);
         buildInterface();
         new MessagesThread().start();
-
     }
 
     public void buildInterface() throws SQLException {
-
         send = new JButton("Send");
         exit = new JButton("Exit");
         chatmsg = new JTextArea();
@@ -50,7 +47,7 @@ public class Client2 extends JFrame implements ActionListener {
 
         bp.add(send);
         bp.add(exit);
-        bp.setBackground(Color.LIGHT_GRAY);
+        bp.setBackground(Color.RED);
         bp.setName("Instant Messenger");
         add(bp,"North");
         send.addActionListener(this);
@@ -89,12 +86,10 @@ public class Client2 extends JFrame implements ActionListener {
                 JOptionPane.PLAIN_MESSAGE);
         String servername = "localhost";
         try {
-            new Client2( userName ,servername);
+            new Client( userName ,servername);
         } catch(Exception ex) {
             ex.printStackTrace();
         }
     }
-
 }
-
 

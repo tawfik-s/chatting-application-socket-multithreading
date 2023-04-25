@@ -1,4 +1,4 @@
-package org.example.clent;
+package org.example.clients;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
 
-public class Client extends JFrame implements ActionListener {
+public class Client3 extends JFrame implements ActionListener {
+
 
     String username;
     PrintWriter pw;
@@ -20,7 +21,7 @@ public class Client extends JFrame implements ActionListener {
     JButton send, exit;
     Socket chatusers;
 
-    public Client(String uname,String servername) throws Exception {
+    public Client3(String uname,String servername) throws Exception {
         super(uname);
         this.username = uname;
         chatusers  = new Socket(servername,9091);
@@ -29,9 +30,11 @@ public class Client extends JFrame implements ActionListener {
         pw.println(uname);
         buildInterface();
         new MessagesThread().start();
+
     }
 
     public void buildInterface() throws SQLException {
+
         send = new JButton("Send");
         exit = new JButton("Exit");
         chatmsg = new JTextArea();
@@ -47,7 +50,7 @@ public class Client extends JFrame implements ActionListener {
 
         bp.add(send);
         bp.add(exit);
-        bp.setBackground(Color.RED);
+        bp.setBackground(Color.LIGHT_GRAY);
         bp.setName("Instant Messenger");
         add(bp,"North");
         send.addActionListener(this);
@@ -62,7 +65,7 @@ public class Client extends JFrame implements ActionListener {
         if ( evt.getSource() == exit ) {
             pw.println("end");
             System.exit(0);
-        }else {
+        } else {
             pw.println(chatip.getText());
             chatip.setText(null);
         }
@@ -86,10 +89,13 @@ public class Client extends JFrame implements ActionListener {
                 JOptionPane.PLAIN_MESSAGE);
         String servername = "localhost";
         try {
-            new Client( userName ,servername);
+            new Client3( userName ,servername);
         } catch(Exception ex) {
             ex.printStackTrace();
         }
     }
+
 }
+
+
 
