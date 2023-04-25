@@ -23,7 +23,7 @@ public class Client extends JFrame implements ActionListener {
     public Client(String uname,String servername) throws Exception {
         super(uname);
         this.username = uname;
-        chatusers  = new Socket(servername,8080);
+        chatusers  = new Socket(servername,9091);
         br = new BufferedReader( new InputStreamReader( chatusers.getInputStream()) ) ;
         pw = new PrintWriter(chatusers.getOutputStream(),true);
         pw.println(uname);
