@@ -9,14 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.example.UsersFackeData.CardData;
-import org.example.UsersFackeData.DummyData;
 
 import java.io.IOException;
-import java.util.List;
 
 public class LoginController {
 
@@ -52,29 +48,14 @@ public class LoginController {
         /**
          * if login successfuly go to contacts list
          */
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/java/org/example/views/ContactsLayout.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
 
-        AnchorPane root = new AnchorPane();
-        List<CardData> dummyData = DummyData.getDummyData();
-
-        double yOffset = 10;
-        for (CardData data : dummyData) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/views/cardI.fxml"));
-            AnchorPane card = loader.load();
-
-            CardItemController controller = loader.getController();
-            controller.setTitle(data.getTitle());
-            controller.setDescription(data.getDescription());
-
-            AnchorPane.setTopAnchor(card, yOffset);
-            yOffset += 110;
-            root.getChildren().add(card);
-        }
-
-        Scene scene = new Scene(root, 300, 400);
-        Stage stage =  (Stage) ((Node)e.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.setScene(scene);
-//        stage.setResizable(false);
         stage.show();
+
+
     }
 
     @FXML
