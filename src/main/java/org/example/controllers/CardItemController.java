@@ -1,10 +1,11 @@
 package org.example.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.example.UsersFackeData.CardData;
+
 
 public class CardItemController {
 
@@ -15,16 +16,20 @@ public class CardItemController {
     private Label title;
 
     @FXML
-    private Button button;
+    private Label subtitle;
 
-    public void setData(String title, String imageUrl) {
-        this.title.setText(title);
-        this.image.setImage(new Image(imageUrl));
+    private CardData cardData;
+
+    public void setData(CardData cardData) {
+        this.cardData = cardData;
+        this.title.setText(cardData.getTitle());
+        this.subtitle.setText(cardData.getSubtitle());
+        this.image.setImage(new Image(cardData.getImageUrl()));
     }
 
     @FXML
-    public void handleButtonClick() {
-        System.out.println("Button clicked!");
+    public void handleCardClick() {
+        System.out.println("Card clicked: " + cardData.getTitle());
+        // Add code to handle card click event here
     }
-
 }

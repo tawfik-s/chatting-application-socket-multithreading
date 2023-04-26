@@ -18,6 +18,8 @@ public class Client1_JavaFX extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
 
+        stage.setResizable(false);
+
         stage.show();
     }
 
