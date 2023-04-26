@@ -3,15 +3,12 @@ package org.example.controllers;
 import java.io.IOException;
 import java.util.List;
 
-import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
-import org.example.UsersFackeData.CardData;
+import org.example.UsersData.CardData;
 
 
 import javafx.event.ActionEvent;
@@ -21,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import org.example.UsersFackeData.DummyData;
+import org.example.UsersData.UsersData;
 
 public class ContactsLayoutController {
 
@@ -45,7 +42,7 @@ public class ContactsLayoutController {
         headerOfContacts.setStyle("-fx-background-color: #007f69; -fx-padding: 10px;");
         titleLabel.setText("Contacts");
 
-        List<CardData> cardDataList = DummyData.getDummyCardData(); // get dummy data
+        List<CardData> cardDataList = UsersData.getDummyCardData(); // get dummy data
         double layoutY = 0.0;
         int insertIndex = cardDataList.size() / 2; // insert cards in the middle
         for (int i = 0; i < cardDataList.size(); i++) {

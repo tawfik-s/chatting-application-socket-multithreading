@@ -1,9 +1,9 @@
-package org.example.UsersFackeData;
+package org.example.UsersData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DummyData {
+public class UsersData {
 
     public static List<CardData> getDummyCardData() {
         List<CardData> cardDataList = new ArrayList<>();

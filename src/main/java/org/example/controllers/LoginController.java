@@ -9,14 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.example.UsersFackeData.CardData;
-import org.example.UsersFackeData.DummyData;
 
 import java.io.IOException;
-import java.util.List;
 
 public class LoginController {
 

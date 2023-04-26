@@ -1,4 +1,4 @@
-package org.example.UsersFackeData;
+package org.example.UsersData;
 
 public class CardData {
 
