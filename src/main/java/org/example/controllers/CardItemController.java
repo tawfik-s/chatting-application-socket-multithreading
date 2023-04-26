@@ -24,7 +24,6 @@ public class CardItemController {
         this.cardData = cardData;
         this.title.setText(cardData.getTitle());
         this.subtitle.setText(cardData.getSubtitle());
-        this.image.setImage(new Image(cardData.getImageUrl()));
     }
 
     @FXML

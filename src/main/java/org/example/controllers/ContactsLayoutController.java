@@ -65,7 +65,7 @@ public class ContactsLayoutController {
                 e.printStackTrace();
             }
         }
-        cardContainer.setStyle("-fx-border-color: #F2F2F2;");
+        cardContainer.setStyle("-fx-border-color: #F2F2F2; -fx-border-radius: 15px;");
     }
 
     private Region createSpacer() {

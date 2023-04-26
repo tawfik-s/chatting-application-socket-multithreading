@@ -4,12 +4,10 @@ public class CardData {
 
     private String title;
     private String subtitle;
-    private String imageUrl;
 
-    public CardData(String title, String subtitle, String imageUrl) {
+    public CardData(String title, String subtitle) {
         this.title = title;
         this.subtitle = subtitle;
-        this.imageUrl = imageUrl;
     }
 
     public String getTitle() {
@@ -18,9 +16,5 @@ public class CardData {
 
     public String getSubtitle() {
         return subtitle;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
     }
 }
