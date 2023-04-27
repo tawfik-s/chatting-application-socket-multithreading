@@ -66,6 +66,7 @@ public class Client2 extends JFrame implements ActionListener {
             pw.println("end");
             System.exit(0);
         }else {
+            //use printwriter to return data
             pw.println(chatip.getText());
             chatip.setText(null);
         }
