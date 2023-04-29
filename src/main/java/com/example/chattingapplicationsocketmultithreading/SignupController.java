@@ -1,14 +1,18 @@
 package com.example.chattingapplicationsocketmultithreading;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -67,26 +71,32 @@ public class SignupController implements Initializable {
             }
         });
 
-        cancelButton.setOnAction(event -> {
-            // Get the current scene
-            Scene scene = cancelButton.getScene();
+        cancelButton.setOnAction(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("login.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
-            // Get the current window
-            Window window = scene.getWindow();
-
-            // Close the current window to go back to the previous scene
-            window.hide();
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
         });
 
-        loginButton.setOnAction(event -> {
-            // Get the current scene
-            Scene scene = cancelButton.getScene();
+        loginButton.setOnAction(e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("signin.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
 
-            // Get the current window
-            Window window = scene.getWindow();
-
-            // Close the current window to go back to the previous scene
-            window.hide();
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
 
         });
     }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/chatting-application-socket-multithreading.iml" filepath="$PROJECT_DIR$/chatting-application-socket-multithreading.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chattingApplicationSocketMultithreading.iml" filepath="$PROJECT_DIR$/chattingApplicationSocketMultithreading.iml" />
     </modules>
   </component>
 </project>

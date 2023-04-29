@@ -18,7 +18,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 import java.util.List;
 
 public class ContactsLayoutController {
@@ -38,12 +41,36 @@ public class ContactsLayoutController {
     @FXML
     private Label titleLabel;
 
+
+    private Client client;
+    private Socket socket;
+    private String username;
+
+    private BufferedReader reader;
+    private OutputStreamWriter writer;
+
+    public void setMainApp(Client client) {
+        this.client = client;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
     public void initialize() {
         // set the background color of the header to a suitable shade of green
         headerOfContacts.setStyle("-fx-background-color: #007f69; -fx-padding: 10px;");
         titleLabel.setText("Contacts");
 
         List<CardData> cardDataList = UsersData.getDummyCardData(); // get dummy data
+
+
+
         double layoutY = 0.0;
         int insertIndex = cardDataList.size() / 2; // insert cards in the middle
         for (int i = 0; i < cardDataList.size(); i++) {

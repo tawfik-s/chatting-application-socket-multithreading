@@ -13,7 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 
 
 public class LoginController {
@@ -23,6 +26,14 @@ public class LoginController {
 
     @FXML
     private PasswordField passwordField;
+
+    private BufferedReader reader;
+    private OutputStreamWriter writer;
+    private Client client;
+
+    public void setMainApp(Client client) {
+        this.client = client;
+    }
 
     @FXML
     private void loginButtonAction(ActionEvent e) throws IOException {
@@ -40,22 +51,22 @@ public class LoginController {
             return;
         }
 
-        // Perform login validation and other operations here
-        // For example, you can check if the username and password are valid
-        // by comparing them to a database or hardcoded values
 
-        // If the login is successful, you can open a new window or change the scene
-        // If the login fails, you can display an error message to the user
 
-        /**
-         * if login successfuly go to contacts list
-         */
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("ContactsLayout.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        try {
+            Socket socket = new Socket("localhost", 9091);
+            client.showContactsPage(socket, username);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
-        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+
+//        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("ContactsLayout.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load());
+//
+//        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+//        stage.setScene(scene);
+//        stage.show();
 
 
     }
@@ -70,20 +81,12 @@ public class LoginController {
     }
 
     @FXML
-    private void signupButtonAction(ActionEvent event) throws IOException {
-        // Load the sign-up page from the FXML file
-        FXMLLoader loader = new FXMLLoader(Client.class.getResource("signup.fxml"));
-        Parent root = loader.load();
+    private void signupButtonAction(ActionEvent e) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("signup.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
 
-        // Create a new stage and set the sign-up page as its scene
-        Stage signupStage = new Stage();
-        signupStage.setScene(new Scene(root));
-
-        // Set the modality and owner of the sign-up stage to prevent interaction with the parent stage
-        signupStage.initModality(Modality.APPLICATION_MODAL);
-        signupStage.initOwner(((Node) event.getSource()).getScene().getWindow());
-
-        // Show the sign-up stage to display the sign-up page
-        signupStage.show();
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }
