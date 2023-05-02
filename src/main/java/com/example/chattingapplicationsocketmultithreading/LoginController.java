@@ -81,12 +81,7 @@ public class LoginController {
 
     @FXML
     private void signupButtonAction(ActionEvent e) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("signup.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        client.showSignUpPage();
     }
 
     private void loginAlert(String title, String alMessage)

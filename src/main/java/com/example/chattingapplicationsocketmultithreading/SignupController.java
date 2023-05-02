@@ -12,9 +12,14 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 public class SignupController implements Initializable {
 
@@ -36,68 +41,66 @@ public class SignupController implements Initializable {
     @FXML
     private Button loginButton;
 
+    private Client client;
+
+    public void setclientApp(Client client) {
+        this.client = client;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         signupButton.setOnAction(event -> {
             String username = usernameField.getText().trim();
             String password = passwordField.getText().trim();
             String confirmPassword = confirmPasswordField.getText().trim();
+            String message = "Register|";
 
             // Validate input
             if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill in all fields.");
-                alert.showAndWait();
+                signUPAlert("Warning","Please fill in all fields.");
             } else if (!password.equals(confirmPassword)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
-                alert.setHeaderText(null);
-                alert.setContentText("Passwords do not match.");
-                alert.showAndWait();
+                signUPAlert("Warning","Passwords do not match.");
             } else {
-                /**
-                 * here
-                 * add user to database
-                 */
-                // Create new user account
-                // TODO: Implement account creation logic
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText(null);
-                alert.setContentText("Account created successfully.");
-                alert.showAndWait();
+                try {
+                    Socket socket = new Socket("localhost", 9091);
+                    var br = new BufferedReader( new InputStreamReader( socket.getInputStream()) ) ;
+                    var pw = new PrintWriter(socket.getOutputStream(),true);
+
+                    message+=username+'|'+password;
+                    pw.println(message);
+
+                    String response = new String(br.readLine());
+
+                    System.out.println(message);
+                    System.out.println(response);
+
+                    if(response.equalsIgnoreCase("done")) {
+                        client.showContactsPage(socket, username);
+                        signUPAlert("Success",response);
+                    } else {
+                        signUPAlert("Warning",response);
+                    }
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
         });
 
         cancelButton.setOnAction(e -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("login.fxml"));
-            Scene scene = null;
-            try {
-                scene = new Scene(fxmlLoader.load());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            client.showLoginPage();
         });
 
         loginButton.setOnAction(e -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("signin.fxml"));
-            Scene scene = null;
-            try {
-                scene = new Scene(fxmlLoader.load());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-
+            client.showLoginPage();
         });
+    }
+
+    private void signUPAlert(String title, String alMessage) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(alMessage);
+        alert.showAndWait();
     }
 }

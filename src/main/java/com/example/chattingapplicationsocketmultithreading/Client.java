@@ -16,6 +16,7 @@ public class Client extends Application {
 
     private Stage primaryStage;
     private AnchorPane loginPage;
+    private AnchorPane signUpPage;
     private AnchorPane contactsPage;
     private BorderPane chatPage;
 
@@ -40,8 +41,35 @@ public class Client extends Application {
 
     }
 
+    public void showLoginPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            loginPage = loader.load();
+            LoginController loginController = loader.getController();
+            loginController.setclientApp(this);
+
+            Scene scene = new Scene(loginPage);
+            primaryStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showSignUpPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
+            signUpPage = loader.load();
+            SignupController signupController = loader.getController();
+            signupController.setclientApp(this);
+
+            Scene scene = new Scene(signUpPage);
+            primaryStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showContactsPage(Socket socket, String username) {
-        // Load main page
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ContactsLayout.fxml"));
             contactsPage = loader.load();
@@ -58,7 +86,6 @@ public class Client extends Application {
     }
 
     public void showChatPage(Socket socket, String username) {
-        // Load main page
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ChatPage.fxml"));
             chatPage = loader.load();
