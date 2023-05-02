@@ -63,21 +63,21 @@ public class ChatPageController {
 
         pw.println(messageToServer);
 
-        final String[] response = {""};
+        String response = new String(br.readLine());
 
-        Thread thread = new Thread(() -> {
-            try {
-                while (!Thread.currentThread().isInterrupted()) {
-                    response[0] = new String(br.readLine());
-                    if (response[0] != null) {
-                        sendMessage(String.valueOf(response[0]));
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        thread.start();
+//        Thread thread = new Thread(() -> {
+//            try {
+//                while (!Thread.currentThread().isInterrupted()) {
+//                    response[0] = new String(br.readLine());
+//                    if (response[0] != null) {
+//                        sendMessage(String.valueOf(response[0]));
+//                    }
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        thread.start();
 
         System.out.println(messageToServer);
 //        System.out.println(response.get());
@@ -85,14 +85,14 @@ public class ChatPageController {
         /**
          * we need to edit here to know how send to how
          */
-        List<String> tokens = Arrays.stream(response[0].split("\\|")).toList();
+        List<String> tokens = Arrays.stream(response.split("\\|")).toList();
         for (var token : tokens) {
             sendMessage(token);
         }
 
         // Add event handler for the back button
         backButton.setOnAction(e -> {
-            thread.interrupt();
+//            thread.interrupt();
             client.showContactsPage(socket, username);
         });
 
@@ -101,6 +101,12 @@ public class ChatPageController {
             String message = messageField.getText().trim();
             if (!message.isEmpty()) {
                 pw.println("SendMessage|"+chatPartner+"|"+message);
+                try {
+                    String response1 = new String(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 messageField.clear();
             }
         });
@@ -111,6 +117,11 @@ public class ChatPageController {
             if (!message.isEmpty()) {
                 sendMessage(message);
                 pw.println("SendMessage|"+chatPartner+"|"+message);
+                try {
+                    String response1 = new String(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 messageField.clear();
             }
         });
