@@ -88,24 +88,6 @@ public class Client extends Application {
         }
     }
 
-    public void showChatPage(Socket socket, String username) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ChatPage.fxml"));
-            chatPage = loader.load();
-            ChatPageController chatController = loader.getController();
-            chatController.setclientApp(this);
-            chatController.setSocket(socket);
-            chatController.setUsername(username);
-
-            Scene scene = new Scene(chatPage);
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
 
         public static void main(String[] args) {
         launch();

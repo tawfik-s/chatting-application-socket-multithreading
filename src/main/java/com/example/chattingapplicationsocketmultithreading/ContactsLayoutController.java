@@ -84,6 +84,7 @@ public class ContactsLayoutController {
             }
 
             List<String> tokens = Arrays.stream(response.split("\\|")).toList();
+            cardDataList.clear();
             for(var token:tokens) {
                 cardDataList.add(new CardData(token, "Chat With me"));
             }
@@ -104,6 +105,9 @@ public class ContactsLayoutController {
                 AnchorPane cardItem = loader.load();
                 CardItemController controller = loader.getController();
                 controller.setData(cardData);
+                controller.setSocket(socket);
+                controller.setclientApp(client);
+                controller.setUsername(username);
                 cardItem.setLayoutY(layoutY);
                 cardItem.setLayoutX(72);
                 cardItem.setStyle("-fx-background-color: white; -fx-border-color: #ECE5DD; -fx-border-width: 1px; -fx-border-radius: 15px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1);");
