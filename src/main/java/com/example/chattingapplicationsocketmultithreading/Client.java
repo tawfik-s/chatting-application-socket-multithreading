@@ -78,8 +78,11 @@ public class Client extends Application {
             contactsController.setSocket(socket);
             contactsController.setUsername(username);
 
+            contactsController.initializeUI();
+
             Scene scene = new Scene(contactsPage);
             primaryStage.setScene(scene);
+            contactsController.setSocket(socket);
         } catch (IOException e) {
             e.printStackTrace();
         }

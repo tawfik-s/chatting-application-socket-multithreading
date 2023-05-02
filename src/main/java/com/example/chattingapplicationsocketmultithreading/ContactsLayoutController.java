@@ -1,27 +1,24 @@
 package com.example.chattingapplicationsocketmultithreading;
 
 import com.example.chattingapplicationsocketmultithreading.UsersData.CardData;
-import com.example.chattingapplicationsocketmultithreading.UsersData.UsersData;
+//import com.example.chattingapplicationsocketmultithreading.UsersData.UsersData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ContactsLayoutController {
@@ -62,12 +59,39 @@ public class ContactsLayoutController {
     }
 
 
-    public void initialize() {
+    public void initializeUI() {
+
         // set the background color of the header to a suitable shade of green
         headerOfContacts.setStyle("-fx-background-color: #007f69; -fx-padding: 10px;");
         titleLabel.setText("Contacts");
+        String message = "LoadUsers";
 
-        List<CardData> cardDataList = UsersData.getDummyCardData(); // get dummy data
+
+        List<CardData> cardDataList = new ArrayList<>();
+        try {
+            var br = new BufferedReader( new InputStreamReader( socket.getInputStream()) ) ;
+            var pw = new PrintWriter(socket.getOutputStream(),true);
+
+            pw.println(message);
+
+            String response = new String(br.readLine());
+
+            System.out.println(message);
+            System.out.println(response);
+
+            if(response == null) {
+                alertError("Error in loud users",response);
+            }
+
+            List<String> tokens = Arrays.stream(response.split("\\|")).toList();
+            for(var token:tokens) {
+                cardDataList.add(new CardData(token, "Chat With me"));
+            }
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
 
 
 
@@ -140,5 +164,14 @@ public class ContactsLayoutController {
         // show the ContextMenu near the MenuButton
         Node source = (Node) event.getSource();
         contextMenu.show(source, Side.BOTTOM, 0, 0);
+    }
+
+    private void alertError(String title, String alMessage)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(alMessage);
+        alert.showAndWait();
     }
 }

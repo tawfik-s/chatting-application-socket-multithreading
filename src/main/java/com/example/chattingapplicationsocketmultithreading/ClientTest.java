@@ -6,8 +6,8 @@ import java.util.Scanner;
 /*
 message verbs
 **************************************
-Login|name|password        ==>done , fail
-Register|name|password  ==> done, fail with message
+Login|name|password        ==>done , fail (implemented)
+Register|name|password  ==> done, fail with message (implemented)
 BroadCast|message
 BroadCastLoad
 LoadUsers     ==>  user|user|user|user|user
