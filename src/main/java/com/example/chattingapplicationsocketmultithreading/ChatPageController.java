@@ -12,7 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
 
 public class ChatPageController {
 
@@ -35,6 +38,25 @@ public class ChatPageController {
     private Button sendButton;
 
     public String chatPartner = "person";
+
+    private Client client;
+    private Socket socket;
+    private String username;
+
+    private BufferedReader reader;
+    private OutputStreamWriter writer;
+
+    public void setclientApp(Client client) {
+        this.client = client;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public void initialize() {
         // Set the header label text and the avatar image here

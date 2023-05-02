@@ -13,9 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
 
 
@@ -27,11 +25,9 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
-    private BufferedReader reader;
-    private OutputStreamWriter writer;
     private Client client;
 
-    public void setMainApp(Client client) {
+    public void setclientApp(Client client) {
         this.client = client;
     }
 
@@ -39,15 +35,11 @@ public class LoginController {
     private void loginButtonAction(ActionEvent e) throws IOException {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
-
+        String message = "Login|";
         // Check if the username and password fields are empty
         if (username.isEmpty() || password.isEmpty()) {
             // Display an error message to the user
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Please enter both a username and password.");
-            alert.showAndWait();
+            loginAlert("Login Error","Please enter both a username and password.");
             return;
         }
 
@@ -55,20 +47,27 @@ public class LoginController {
 
         try {
             Socket socket = new Socket("localhost", 9091);
-            client.showContactsPage(socket, username);
+            var br = new BufferedReader( new InputStreamReader( socket.getInputStream()) ) ;
+            var pw = new PrintWriter(socket.getOutputStream(),true);
+
+            message+=username+'|'+password;
+            pw.println(message);
+
+            String response = new String(br.readLine());
+
+            System.out.println(message);
+            System.out.println(response);
+
+            if(response.equalsIgnoreCase("done")) {
+                client.showContactsPage(socket, username);
+                loginAlert("Login Success",response);
+            } else {
+                loginAlert("Login Error",response);
+            }
+
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-
-
-//        FXMLLoader fxmlLoader = new FXMLLoader(Client.class.getResource("ContactsLayout.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load());
-//
-//        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-//        stage.setScene(scene);
-//        stage.show();
-
-
     }
 
     @FXML
@@ -88,5 +87,14 @@ public class LoginController {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void loginAlert(String title, String alMessage)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(alMessage);
+        alert.showAndWait();
     }
 }

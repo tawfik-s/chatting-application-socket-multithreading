@@ -16,7 +16,6 @@ public class Client extends Application {
 
     private Stage primaryStage;
     private AnchorPane loginPage;
-    private AnchorPane signUpPage;
     private AnchorPane contactsPage;
     private BorderPane chatPage;
 
@@ -30,7 +29,7 @@ public class Client extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Login.fxml"));
             loginPage = loader.load();
             LoginController loginController = loader.getController();
-            loginController.setMainApp(this);
+            loginController.setclientApp(this);
 
             Scene scene = new Scene(loginPage);
             this.primaryStage.setScene(scene);
@@ -44,12 +43,12 @@ public class Client extends Application {
     public void showContactsPage(Socket socket, String username) {
         // Load main page
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ContactsLayout.fxml"));
             contactsPage = loader.load();
-            ContactsLayoutController mainController = loader.getController();
-            mainController.setMainApp(this);
-            mainController.setSocket(socket);
-            mainController.setUsername(username);
+            ContactsLayoutController contactsController = loader.getController();
+            contactsController.setclientApp(this);
+            contactsController.setSocket(socket);
+            contactsController.setUsername(username);
 
             Scene scene = new Scene(contactsPage);
             primaryStage.setScene(scene);
@@ -57,6 +56,26 @@ public class Client extends Application {
             e.printStackTrace();
         }
     }
+
+    public void showChatPage(Socket socket, String username) {
+        // Load main page
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ChatPage.fxml"));
+            chatPage = loader.load();
+            ChatPageController chatController = loader.getController();
+            chatController.setclientApp(this);
+            chatController.setSocket(socket);
+            chatController.setUsername(username);
+
+            Scene scene = new Scene(chatPage);
+            primaryStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
         public static void main(String[] args) {
         launch();

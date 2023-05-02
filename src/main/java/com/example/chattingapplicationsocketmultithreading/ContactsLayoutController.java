@@ -49,7 +49,7 @@ public class ContactsLayoutController {
     private BufferedReader reader;
     private OutputStreamWriter writer;
 
-    public void setMainApp(Client client) {
+    public void setclientApp(Client client) {
         this.client = client;
     }
 
