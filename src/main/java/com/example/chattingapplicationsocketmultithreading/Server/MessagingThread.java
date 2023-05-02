@@ -157,6 +157,3 @@ public class MessagingThread extends Thread {
             output.println("LoggedOut");
             System.out.println(ex);
         }
-
-    }
-}

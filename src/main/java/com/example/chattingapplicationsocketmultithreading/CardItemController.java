@@ -61,10 +61,3 @@ public class CardItemController {
         controller.setUsername(username);
 //        controller.initialize();
         loader.setController(controller);
-
-        Scene scene = new Scene(loader.load());
-        Stage stage = (Stage) title.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
-}

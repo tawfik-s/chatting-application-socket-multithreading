@@ -13,8 +13,3 @@ public class CardData {
     public String getTitle() {
         return title;
     }
-
-    public String getSubtitle() {
-        return subtitle;
-    }
-}
