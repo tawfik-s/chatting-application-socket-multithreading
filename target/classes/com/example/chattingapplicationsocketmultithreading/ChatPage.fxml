@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane prefHeight="567.0" prefWidth="546.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <top>
@@ -17,7 +18,12 @@
             <image>
                <Image url="@userIcon.png" />
             </image></ImageView>
-            <Label fx:id="headerLabel" alignment="CENTER" prefHeight="27.0" prefWidth="211.0" style="-fx-font-size: 18px; -fx-text-fill: white;" text="Chat with John" BorderPane.alignment="CENTER" />
+            <Label fx:id="headerLabel" alignment="CENTER" prefHeight="27.0" prefWidth="262.0" style="-fx-font-size: 18px; -fx-text-fill: white;" text="Chat with John" BorderPane.alignment="CENTER" />
+         <Button fx:id="refreshsButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: #007f69; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 5px 10px;" text="🔄">
+            <font>
+               <Font size="24.0" />
+            </font>
+         </Button>
         </HBox>
     </top>
     <center>

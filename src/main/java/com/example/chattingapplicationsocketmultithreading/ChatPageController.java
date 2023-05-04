@@ -1,11 +1,14 @@
 package com.example.chattingapplicationsocketmultithreading;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
@@ -31,6 +34,9 @@ public class ChatPageController {
 
     @FXML
     private Button sendButton;
+
+    @FXML
+    private Button refreshsButton;
 
     public String chatPartner = "person";
 
@@ -90,6 +96,8 @@ public class ChatPageController {
             sendMessage(token);
         }
 
+        setFocusToEnd();
+
         // Add event handler for the back button
         backButton.setOnAction(e -> {
 //            thread.interrupt();
@@ -100,6 +108,7 @@ public class ChatPageController {
         sendButton.setOnAction(event -> {
             String message = messageField.getText().trim();
             if (!message.isEmpty()) {
+                sendMessage(message);
                 pw.println("SendMessage|"+chatPartner+"|"+message);
 //                try {
 //                    String response1 = new String(br.readLine());
@@ -109,6 +118,26 @@ public class ChatPageController {
 
                 messageField.clear();
             }
+            referech();
+        });
+        refreshsButton.setOnAction(event -> {
+            referech();
+//            pw.println(messageToServer);
+//
+//            try {
+//                String response1 = new String(br.readLine());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+////            tokens.clear();
+//            List<String> tokenss = Arrays.stream(response.split("\\|")).toList();
+//            messageList.getItems().clear();
+//
+//            for (var token : tokenss) {
+//                sendMessage(token);
+//            }
+
         });
 
         // Add event handler for the message field
@@ -124,6 +153,7 @@ public class ChatPageController {
 //                }
                 messageField.clear();
             }
+            referech();
         });
     }
 
@@ -131,5 +161,33 @@ public class ChatPageController {
         // Add the message to the message list as a sent message
         messageList.getItems().add(message);
 
+    }
+
+    public void setFocusToEnd() {
+        int lastIndex = messageList.getItems().size() - 1;
+        messageList.scrollTo(lastIndex);
+        messageList.getSelectionModel().select(lastIndex);
+        messageList.getFocusModel().focus(lastIndex);
+    }
+
+    public void referech() {
+        FXMLLoader loader = new FXMLLoader(Client.class.getResource("ChatPage.fxml"));
+        ChatPageController controller = new ChatPageController();
+        controller.chatPartner = chatPartner;
+        controller.setclientApp(client);
+        controller.setSocket(socket);
+        controller.setUsername(username);
+//        controller.initialize();
+        loader.setController(controller);
+
+        Scene scene = null;
+        try {
+            scene = new Scene(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) headerBox.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }
