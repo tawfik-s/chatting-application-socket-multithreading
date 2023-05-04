@@ -101,11 +101,11 @@ public class ChatPageController {
             String message = messageField.getText().trim();
             if (!message.isEmpty()) {
                 pw.println("SendMessage|"+chatPartner+"|"+message);
-                try {
-                    String response1 = new String(br.readLine());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    String response1 = new String(br.readLine());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
                 messageField.clear();
             }
@@ -117,11 +117,11 @@ public class ChatPageController {
             if (!message.isEmpty()) {
                 sendMessage(message);
                 pw.println("SendMessage|"+chatPartner+"|"+message);
-                try {
-                    String response1 = new String(br.readLine());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    String response1 = new String(br.readLine());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 messageField.clear();
             }
         });

@@ -146,8 +146,8 @@ public class MessagingThread extends Thread {
                         continue;
                     }
                     dbOperations.addMessage(user.getId(), receiver.getId(), message);
-                    sendToUser(user.getName(), userName, message);
-                    sendMessage(userName,message);
+                    //sendToUser(user.getName(), userName, message);
+                    //sendMessage(userName,message);
                 }else{
                     output.println("404");
                 }

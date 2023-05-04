@@ -7,13 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="chattingApplicationSocketMultithreading" />
         <module name="chatting-application-socket-multithreading" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="chatting-application-socket-multithreading" target="0" />
-      <module name="chattingApplicationSocketMultithreading" target="0" />
+      <module name="chattingApplicationSocketMultithreading" target="20" />
     </bytecodeTargetLevel>
   </component>
 </project>
