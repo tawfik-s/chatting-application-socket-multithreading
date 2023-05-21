@@ -1,5 +1,8 @@
 package com.example.chattingapplicationsocketmultithreading;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.*;
 import java.net.Socket;
@@ -71,19 +75,29 @@ public class ChatPageController {
 
         String response = new String(br.readLine());
 
-//        Thread thread = new Thread(() -> {
-//            try {
-//                while (!Thread.currentThread().isInterrupted()) {
-//                    response[0] = new String(br.readLine());
-//                    if (response[0] != null) {
-//                        sendMessage(String.valueOf(response[0]));
-//                    }
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//        thread.start();
+
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(4), event -> {
+            // Clear the message list and fetch the latest messages from the server
+            System.out.println("refresh");
+            messageList.getItems().clear();
+            pw.println(messageToServer);
+
+            String response2;
+            try {
+                response2 = br.readLine();
+                List<String> tokens = Arrays.stream(response2.split("\\|")).toList();
+                for (var token : tokens) {
+                    sendMessage(token);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            setFocusToEnd();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
 
         System.out.println(messageToServer);
 //        System.out.println(response.get());
@@ -97,6 +111,7 @@ public class ChatPageController {
         }
 
         setFocusToEnd();
+//        Platform.runLater(() -> messageField.requestFocus());
 
         // Add event handler for the back button
         backButton.setOnAction(e -> {
@@ -110,11 +125,7 @@ public class ChatPageController {
             if (!message.isEmpty()) {
                 sendMessage(message);
                 pw.println("SendMessage|"+chatPartner+"|"+message);
-//                try {
-//                    String response1 = new String(br.readLine());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+
 
                 messageField.clear();
             }
@@ -122,21 +133,7 @@ public class ChatPageController {
         });
         refreshsButton.setOnAction(event -> {
             referech();
-//            pw.println(messageToServer);
-//
-//            try {
-//                String response1 = new String(br.readLine());
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-////            tokens.clear();
-//            List<String> tokenss = Arrays.stream(response.split("\\|")).toList();
-//            messageList.getItems().clear();
-//
-//            for (var token : tokenss) {
-//                sendMessage(token);
-//            }
+
 
         });
 
@@ -146,11 +143,7 @@ public class ChatPageController {
             if (!message.isEmpty()) {
                 sendMessage(message);
                 pw.println("SendMessage|"+chatPartner+"|"+message);
-//                try {
-//                    String response1 = new String(br.readLine());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+
                 messageField.clear();
             }
             referech();

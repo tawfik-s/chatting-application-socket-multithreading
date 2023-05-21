@@ -19,7 +19,6 @@ public class Client extends Application {
     private AnchorPane signUpPage;
     private AnchorPane contactsPage;
     private BorderPane chatPage;
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;

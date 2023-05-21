@@ -115,19 +115,31 @@ public class MessagingThread extends Thread {
                     output.println(res.toString());
                 } else if (tokens.get(0).equals("Load")) {
                     var userName = tokens.get(1);
-                    User receiver = dbOperations.getUserByName(userName);
-                    var messages = dbOperations.getChatMessages(user.getId(), receiver.getId());
-                    StringBuilder stringBuffer = new StringBuilder();
-                    for (var message : messages) {
-                        stringBuffer.append(message);
-                        stringBuffer.append('|');
+                    if (userName.equals("BroadCast"))
+                    {
+                        var messages = dbOperations.getAllCommonGroupMessages();
+                        StringBuilder stringBuffer = new StringBuilder();
+                        for (var message : messages) {
+                            stringBuffer.append(message);
+                            stringBuffer.append('|');
+                        }
+                        System.out.println(stringBuffer.toString());
+                        output.println(stringBuffer.toString());
+                    } else {
+                        User receiver = dbOperations.getUserByName(userName);
+                        var messages = dbOperations.getChatMessages(user.getId(), receiver.getId());
+                        StringBuilder stringBuffer = new StringBuilder();
+                        for (var message : messages) {
+                            stringBuffer.append(message);
+                            stringBuffer.append('|');
+                        }
+                        System.out.println(stringBuffer.toString());
+                        output.println(stringBuffer.toString());
                     }
-                    System.out.println(stringBuffer.toString());
-                    output.println(stringBuffer.toString());
                 } else if (tokens.get(0).equals("BroadCast")) {
                     String message=tokens.get(1);
                     dbOperations.addCommonGroupMessage(user.getId(),message);
-                    sendToAll(user.getName(),message);
+//                    sendToAll(user.getName(),message);
                 }else if (tokens.get(0).equals("BroadCastLoad")) {
                     var messages = dbOperations.getAllCommonGroupMessages();
                     StringBuilder stringBuffer = new StringBuilder();
@@ -140,14 +152,21 @@ public class MessagingThread extends Thread {
                 }else if(tokens.get(0).equals("SendMessage")){
                     String userName = tokens.get(1);
                     String message = tokens.get(2);
-                    User receiver = dbOperations.getUserByName(userName);
-                    if (receiver == null) {
-                        output.println("404");
-                        continue;
+
+                    if(userName.equals("BroadCast")) {
+                        dbOperations.addCommonGroupMessage(user.getId(),message);
+//                        sendToAll(user.getName(),message);
                     }
-                    dbOperations.addMessage(user.getId(), receiver.getId(), message);
-                    //sendToUser(user.getName(), userName, message);
-                    //sendMessage(userName,message);
+                    else {
+                        User receiver = dbOperations.getUserByName(userName);
+                        if (receiver == null) {
+                            output.println("404");
+                            continue;
+                        }
+                        dbOperations.addMessage(user.getId(), receiver.getId(), message);
+                        //sendToUser(user.getName(), userName, message);
+                        //sendMessage(userName,message);
+                    }
                 }else{
                     output.println("404");
                 }

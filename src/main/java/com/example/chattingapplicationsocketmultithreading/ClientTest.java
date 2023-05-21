@@ -8,8 +8,8 @@ message verbs
 **************************************
 Login|name|password        ==>done , fail (implemented)
 Register|name|password  ==> done, fail with message (implemented)
-BroadCast|message
-BroadCastLoad
+//BroadCast|message
+Load|BroadCast
 LoadUsers     ==>  user|user|user|user|user
 Load|userName   ==> String contain old messages
 SendMessage|UserName|message
